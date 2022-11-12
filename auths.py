@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, redirect, abort, request, flash, url_for
+from flask import Blueprint, render_template, session, redirect, abort, request, url_for
 from google_auth_oauthlib.flow import Flow
 from google.oauth2 import id_token
 from pip._vendor import cachecontrol
@@ -10,7 +10,6 @@ import pathlib
 import os
 import requests
 import sqlite3
-
 
 
 auths = Blueprint('auths', __name__)
