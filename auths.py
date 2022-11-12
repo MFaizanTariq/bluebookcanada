@@ -5,12 +5,12 @@ from pip._vendor import cachecontrol
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
-
 import google.auth.transport.requests
 import pathlib
 import os
 import requests
 import sqlite3
+
 
 
 auths = Blueprint('auths', __name__)

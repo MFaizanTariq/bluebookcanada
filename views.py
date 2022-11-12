@@ -51,6 +51,7 @@ def choice():
 
 @views.route("/main_page", methods=['GET', 'POST'])
 def main_page():
+    D = dict()
     username = session['username']
     password = session['password']
     con = sqlite3.connect('new_db.db')
@@ -80,6 +81,32 @@ def main_page():
     size_nw1 = len(nw1)
     size_nw2 = len(nw2)
     size_nw3 = len(nw3)
+
+    cur.execute("SELECT username, location, IntCat1, IntCat2, IntCat3 FROM users WHERE username!=? and password!=?",
+                (username, password))
+    data = cur.fetchall()
+
+    fsz = len(data)
+
+    for x in range(fsz):
+        frd_ind = 0
+        for y in range(5):
+            print(data[x][y])
+            if user_country == data[x][y]:
+                frd_ind += 1
+            if user_cat1 == data[x][y]:
+                frd_ind += 1
+            if user_cat2 == data[x][y]:
+                frd_ind += 1
+            if user_cat3 == data[x][y]:
+                frd_ind += 1
+        print(frd_ind)
+        frd_uname = data[x][0]
+        D[frd_uname] = int(frd_ind)
+
+    print(D)
+    D_new = dict(sorted(D.items(), key=lambda item: item[1], reverse=True))
+    print(D_new)
 
     return render_template('main_page.html', Title1=nw1, Sz1=size_nw1, Title2=nw2, Sz2=size_nw2, Title3=nw3, Sz3=size_nw3, Cat1=user_cat1, Cat2=user_cat2, Cat3=user_cat3)
 
@@ -140,12 +167,10 @@ def login():
                 session['password'] = password
                 session['email'] = user_data[4]
                 return redirect(url_for("views.main_page"))
-            else:
-                return redirect(url_for('auths.signup_oauth'))
         else:
             print("Incorrect credentials")
-            flash('Incorrect credentials')
-            return render_template('login.html', form=form)
+            msg = 'Incorrect credentials'
+            return render_template('login.html', form=form, message=msg)
 
 
     return render_template('login.html', form=form)

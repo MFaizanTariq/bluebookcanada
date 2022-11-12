@@ -32,8 +32,6 @@ def news_fetch1(cat, loc, key):
     dt = db_cur.fetchall()
     id = len(dt) + 1
 
-    os.system('cls')
-
     pytrend = TrendReq()
     tr_keys = pytrend.trending_searches(loc)
     x1 = len(tr_keys)

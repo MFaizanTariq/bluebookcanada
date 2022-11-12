@@ -7,7 +7,9 @@ Login
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{url_for('static', filename='signin.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='signin.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='test.css')}}">
+
 {% endblock %}
 
 {% block content %}
@@ -33,15 +35,9 @@ Login
       </div>
     </nav>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class=flashes>
-            {% for message in messages %}
-            <li position:absolute, top:10%, background-colour: red>{{ message }}</li>
-            {% endfor %}
-            </ul>
+        {% if message %}
+            <h3 class="main-10">{{ message }}</h3>
         {% endif %}
-    {% endwith %}
 
     <div class="container">
 
