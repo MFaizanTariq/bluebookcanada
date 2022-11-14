@@ -44,7 +44,7 @@ app.register_blueprint(views, url_prefix='/')
 app.register_blueprint(auths, url_prefix='/')
 
 
-@scheduler.task('cron', id='1', hour='10', minute='00')
+@scheduler.task('cron', id='1', hour='09', minute='40')
 def news_fetch():
     news_fetch1('entertainment', 'australia', key4)
     news_fetch1('business', 'australia', key4)
