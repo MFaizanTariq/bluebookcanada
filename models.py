@@ -2,6 +2,7 @@ from pytrends.request import TrendReq
 from newsapi import NewsApiClient
 import pandas as pd
 import datetime
+import pytz
 import sqlite3
 import os
 
@@ -21,7 +22,7 @@ def users_db_fetch():
 
 
 def news_fetch1(cat, loc, key):
-    nw_dt = datetime.datetime.now()
+    nw_dt = datetime.datetime.now(pytz.timezone('America/Montreal'))
     nw_dt = nw_dt.date()
 
     newsapi = NewsApiClient(api_key=key)
