@@ -44,12 +44,12 @@ app.register_blueprint(views, url_prefix='/')
 app.register_blueprint(auths, url_prefix='/')
 
 
-@scheduler.task('cron', id='1', hour='19', minute='46')
+@scheduler.task('cron', id='1', hour='19', minute='47')
 def news_fetch():
     news_fetch1('entertainment', 'australia', key1)
     news_fetch1('business', 'australia', key1)
     news_fetch1('sports', 'australia', key1)
-    news_fetch1('health', 'australia', key1)
+    news_fetch1('health', 'australia', key11)
     news_fetch1('science', 'australia', key2)
     news_fetch1('technology', 'australia', key2)
     news_fetch1('entertainment', 'canada', key2)
