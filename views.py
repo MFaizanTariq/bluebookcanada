@@ -130,43 +130,6 @@ def main_page():
                            Cat1=user_cat1, Cat2=user_cat2, Cat3=user_cat3)
 
 
-@views.route("/old_page", methods=['GET'])
-def old_page():
-    username = session['username']
-    password = session['password']
-    con = sqlite3.connect('new_db.db')
-    cur = con.cursor()
-    cur.execute("SELECT * FROM users WHERE username=? and password=?", (username, password))
-    user_data = cur.fetchone()
-    user_country = user_data[6]
-    user_cat1 = user_data[8]
-    user_cat2 = user_data[9]
-    user_cat3 = user_data[10]
-
-    nw_dt2 = nw_dt - datetime.timedelta(days=1)
-
-    cur.execute("SELECT Title, Description, link FROM news_data WHERE Country=? and Category=? and Nw_Date=?",
-                (user_country, user_cat1, nw_dt2))
-
-    nw1 = cur.fetchall()
-
-    cur.execute("SELECT Title, Description, link FROM news_data WHERE Country=? and Category=? and Nw_Date=?",
-                (user_country, user_cat2, nw_dt2))
-
-    nw2 = cur.fetchall()
-
-    cur.execute("SELECT Title, Description, link FROM news_data WHERE Country=? and Category=? and Nw_Date=?",
-                (user_country, user_cat3, nw_dt2))
-
-    nw3 = cur.fetchall()
-
-    size_nw1 = len(nw1)
-    size_nw2 = len(nw2)
-    size_nw3 = len(nw3)
-
-    return render_template('old_page.html', Title1=nw1, Sz1=size_nw1, Title2=nw2, Sz2=size_nw2, Title3=nw3, Sz3=size_nw3, Cat1=user_cat1, Cat2=user_cat2, Cat3=user_cat3)
-
-
 @views.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
