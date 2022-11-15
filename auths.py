@@ -164,7 +164,7 @@ def protected_area2():
         con = sqlite3.connect('new_db.db')
         cur = con.cursor()
         uname = form.username.data
-        email = session['email']
+        email = session["email"]
 
         cur.execute("SELECT username FROM users WHERE username=? and username=?", (uname, uname))
         name_chk = cur.fetchall()
