@@ -128,4 +128,29 @@ def protected_area():
 
 @auths.route('/facebook')
 def facebook():
-    return render_template('signup.html', form=form)
+    from app import oauth
+
+    oauth.register(
+        name='facebook',
+        client_id='1075579763106582',
+        client_secret='03a2ec88cdfddad46fef620995588a5b',
+        access_token_url='https://graph.facebook.com/oauth/access_token',
+        access_token_params=None,
+        authorize_url='https://www.facebook.com/dialog/oauth',
+        authorize_params=None,
+        api_base_url='https://graph.facebook.com/',
+        client_kwargs={'scope': 'email'},
+    )
+    redirect_uri = url_for('auths.facebook_auth', _external=True)
+    return oauth.facebook.authorize_redirect(redirect_uri)
+
+@auths.route('/facebook/auth/')
+def facebook_auth():
+    from app import oauth
+    token = oauth.facebook.authorize_access_token()
+    resp = oauth.facebook.get(
+        'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
+    profile = resp.json()
+    print("take")
+    print("Facebook User ", profile)
+    return redirect("/protected_area")
