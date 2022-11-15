@@ -51,8 +51,7 @@ def callback():
 
     credentials = flow.credentials
     request_session = requests.session()
-    cached_session = cachecontrol.CacheControl(request_session)
-    token_request = google.auth.transport.requests.Request(session=cached_session)
+    token_request = google.auth.transport.requests.Request(session=request_session)
 
     id_info = id_token.verify_oauth2_token(
         id_token=credentials._id_token,
