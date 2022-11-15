@@ -132,8 +132,8 @@ def facebook():
 
     oauth.register(
         name='facebook',
-        client_id='1075579763106582',
-        client_secret='03a2ec88cdfddad46fef620995588a5b',
+        client_id='628408715694502',
+        client_secret='f9ee852af9168a1abff8f35c88a0892a',
         access_token_url='https://graph.facebook.com/oauth/access_token',
         access_token_params=None,
         authorize_url='https://www.facebook.com/dialog/oauth',
