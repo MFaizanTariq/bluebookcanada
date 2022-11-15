@@ -153,4 +153,4 @@ def facebook_auth():
     profile = resp.json()
     print("take")
     print("Facebook User ", profile)
-    return redirect("/protected_area")
+    return redirect(url_for("views.index"))
