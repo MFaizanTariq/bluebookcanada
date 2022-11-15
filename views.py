@@ -188,6 +188,7 @@ def profile_update():
     firstname = user_data[2]
     lastname = user_data[3]
     country = user_data[6]
+    news_lmt = user_data[7]
     user_cat1 = user_data[8]
     user_cat2 = user_data[9]
     user_cat3 = user_data[10]
@@ -196,15 +197,17 @@ def profile_update():
         cat1 = request.form['cat-1']
         cat2 = request.form['cat-2']
         cat3 = request.form['cat-3']
-        cur.execute("UPDATE users SET IntCat1=?, IntCat2=?, IntCat3=? WHERE username=? and password=?", (cat1, cat2, cat3, username, password))
+        news_lmt = request.form['newslmt']
+        print(news_lmt)
+        cur.execute("UPDATE users SET IntCat1=?, IntCat2=?, IntCat3=?, location2=? WHERE username=? and password=?",
+                    (cat1, cat2, cat3, news_lmt, username, password))
         con.commit()
         msg = 'Profile successfully updated!!!'
         return render_template('profile_update.html', username=username, email=email, country=country, firstname=firstname,
-                               lastname=lastname, cat1=cat1, cat2=cat2, cat3=cat3, message=msg)
+                               lastname=lastname, cat1=cat1, cat2=cat2, cat3=cat3, news_lmt=news_lmt, message=msg)
 
-    return render_template('profile_update.html', username=username, email=email, firstname=firstname,
+    return render_template('profile_update.html', username=username, email=email, firstname=firstname, news_lmt=news_lmt,
                            lastname=lastname, country=country, cat1=user_cat1, cat2=user_cat2, cat3=user_cat3)
-
 
 @views.route("/profile2", methods=['GET', 'POST'])
 def profile_update2():
