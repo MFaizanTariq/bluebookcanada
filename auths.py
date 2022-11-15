@@ -125,3 +125,7 @@ def protected_area():
             return redirect(url_for("views.choice"))
 
     return render_template('signup.html', form=form)
+
+@auths.route('/facebook')
+def facebook():
+    return render_template('signup.html', form=form)
