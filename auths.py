@@ -152,5 +152,6 @@ def facebook_auth():
         'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
     profile = resp.json()
     print("take")
-    print("Facebook User ", profile)
+    print("Facebook Name: ", profile['name'])
+    print("Facebook email: ", profile['email'])
     return redirect(url_for("views.index"))
