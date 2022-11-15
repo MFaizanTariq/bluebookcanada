@@ -151,7 +151,47 @@ def facebook_auth():
     resp = oauth.facebook.get(
         'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
     profile = resp.json()
-    print("take")
-    print("Facebook Name: ", profile['name'])
-    print("Facebook email: ", profile['email'])
-    return redirect(url_for("views.index"))
+    
+    session["name"] = profile['name']
+    session["email"] = profile['email']
+
+    return redirect("/protected_area2")
+
+@auths.route("/protected_area2", methods=['GET', 'POST'])
+def protected_area2():
+    form = RegisterForm()
+    if request.method == "POST":
+        con = sqlite3.connect('new_db.db')
+        cur = con.cursor()
+        uname = form.username.data
+        email = session['email']
+
+        cur.execute("SELECT username FROM users WHERE username=? and username=?", (uname, uname))
+        name_chk = cur.fetchall()
+
+        cur.execute("SELECT email FROM users WHERE email=? and email=?", (email, email))
+        email_chk = cur.fetchall()
+
+        name_chk_sz = len(name_chk)
+        email_chk_sz = len(email_chk)
+
+        if email_chk_sz != 0:
+            msg = "Email already registered"
+            return render_template('signup.html', form=form, message=msg)
+
+        elif name_chk_sz != 0:
+            msg = "Username already exist"
+            return render_template('signup.html', form=form, message=msg)
+
+        else:
+            params = uname, session["name"], form.firstname.data, form.lastname.data, email, form.password.data, form.location.data,'N/A' ,'N/a', 'N/a', 'N/a'
+            cur.executemany("""
+            INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?)
+                    """, (params,))
+            con.commit()
+
+            session['username'] = form.username.data
+            session['password'] = form.password.data
+            return redirect(url_for("views.choice"))
+
+    return render_template('signup.html', form=form)
