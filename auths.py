@@ -194,4 +194,4 @@ def protected_area2():
             session['password'] = form.password.data
             return redirect(url_for("views.choice"))
 
-    return render_template('signup.html', form=form)
+    return render_template('signup2.html', form=form)
