@@ -25,20 +25,6 @@ scheduler.init_app(app)
 con = sqlite3.connect('new_db.db')
 cur = con.cursor()
 
-cur.execute(
-    """CREATE TABLE IF NOT EXISTS users (username TEXT, 
-                                        fullname TEXT,
-                                        firstname TEXT,
-                                        lastname TEXT, 
-                                        email TEXT, 
-                                        password TEXT, 
-                                        location TEXT,
-                                        location2 TEXT, 
-                                        IntCat1 TEXT, 
-                                        IntCat2 TEXT, 
-                                        IntCat3 TEXT)
-    """)
-
 
 app.register_blueprint(views, url_prefix='/')
 app.register_blueprint(auths, url_prefix='/')
