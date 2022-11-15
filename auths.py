@@ -35,6 +35,11 @@ class RegisterForm(FlaskForm):
     location = StringField('Country', validators=[InputRequired()])
 
 
+@auths.route("/signup", methods=['GET', 'POST'])
+def signup():
+    return render_template('signupuption.html')
+    
+    
 @auths.route("/signup_oauth")
 def signup_oauth():
     authorization_url, state = flow.authorization_url()
