@@ -50,6 +50,7 @@ def choice():
 
 
 @views.route("/main_page", methods=['GET', 'POST'])
+def main_page():
     D = dict()
     username = session['username']
     password = session['password']
