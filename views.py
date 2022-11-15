@@ -50,7 +50,6 @@ def choice():
 
 
 @views.route("/main_page", methods=['GET', 'POST'])
-def main_page():
     D = dict()
     username = session['username']
     password = session['password']
@@ -59,28 +58,46 @@ def main_page():
     cur.execute("SELECT * FROM users WHERE username=? and password=?", (username, password))
     user_data = cur.fetchone()
     user_country = user_data[6]
+    news_lmt = user_data[7]
     user_cat1 = user_data[8]
     user_cat2 = user_data[9]
     user_cat3 = user_data[10]
 
-    cur.execute("SELECT Title, Description, link FROM news_data WHERE Country=? and Category=? and Nw_Date=?",
-                (user_country, user_cat1, nw_dt))
+    cur.execute("SELECT Title, Description, link FROM news_data WHERE Country=? and Category=?",
+                (user_country, user_cat1))
 
     nw1 = cur.fetchall()
+    nw1.reverse()
 
-    cur.execute("SELECT Title, Description, link FROM news_data WHERE Country=? and Category=? and Nw_Date=?",
-                (user_country, user_cat2, nw_dt))
+    cur.execute("SELECT Title, Description, link FROM news_data WHERE Country=? and Category=?",
+                (user_country, user_cat2))
 
     nw2 = cur.fetchall()
+    nw2.reverse()
 
-    cur.execute("SELECT Title, Description, link FROM news_data WHERE Country=? and Category=? and Nw_Date=?",
-                (user_country, user_cat3, nw_dt))
+    cur.execute("SELECT Title, Description, link FROM news_data WHERE Country=? and Category=?",
+                (user_country, user_cat3))
 
     nw3 = cur.fetchall()
+    nw3.reverse()
+
+    if news_lmt == '':
+        news_lmt = 10
+
+    if news_lmt == 'N/A':
+        news_lmt = 10
+    
+    nw_lmt = int(news_lmt)
 
     size_nw1 = len(nw1)
+    if size_nw1 > nw_lmt:
+        size_nw1 = nw_lmt
     size_nw2 = len(nw2)
+    if size_nw2 > nw_lmt:
+        size_nw2 = nw_lmt
     size_nw3 = len(nw3)
+    if size_nw3 > nw_lmt:
+        size_nw3 = nw_lmt
 
     cur.execute("SELECT username, location, IntCat1, IntCat2, IntCat3 FROM users WHERE username!=? and password!=?",
                 (username, password))
@@ -108,7 +125,8 @@ def main_page():
     D_new = dict(sorted(D.items(), key=lambda item: item[1], reverse=True))
     print(D_new)
 
-    return render_template('main_page.html', Title1=nw1, Sz1=size_nw1, Title2=nw2, Sz2=size_nw2, Title3=nw3, Sz3=size_nw3, Cat1=user_cat1, Cat2=user_cat2, Cat3=user_cat3)
+    return render_template('main_page.html', Title1=nw1, Sz1=size_nw1, Title2=nw2, Sz2=size_nw2, Title3=nw3, Sz3=size_nw3,
+                           Cat1=user_cat1, Cat2=user_cat2, Cat3=user_cat3)
 
 
 @views.route("/old_page", methods=['GET'])
