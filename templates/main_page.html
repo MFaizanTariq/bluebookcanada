@@ -56,7 +56,9 @@
                 <div class="main-5">
                     <h4 class="main-6">{{Title1[ct1][0]}}</h4>
                     <h4 class="main-12">{{Title1[ct1][1]}}</h4>
-                    <h5><a class="main-11" target='_blank' href="{{Title1[ct1][2]}}">Click for details!</a></h5>
+                    <div class="d-flex justify-content-end">
+                        <h5><a class="main-11" target='_blank' href="{{Title1[ct1][2]}}">Click for details!</a></h5>
+                    </div>
                 </div>
            {% endfor %}
         </div>
@@ -64,7 +66,7 @@
     </div>
 
     <div class="tab-pane fade" id="cat-2" role="tabpanel" aria-labelledby="cat-2-tab" tabindex="1">
-        <div class="main-3">
+        <div class="main-23">
             {% for ct1 in range(0, Sz2, 2) %}
                 <div class="main-5">
                     <h4 class="main-6">{{Title2[ct1][0]}}</h4>
@@ -74,19 +76,21 @@
            {% endfor %}
         </div>
 
-        <div class="main-4">
+        <div class="main-24">
             {% for ct1 in range(1, Sz2, 2) %}
                 <div class="main-5">
                     <h4 class="main-6">{{Title2[ct1][0]}}</h4>
                     <h4 class="main-12">{{Title2[ct1][1]}}</h4>
-                    <h5><a class="main-11" target='_blank' href="{{Title2[ct1][2]}}">Click for details!</a></h5>
-                </div>
+                    <div class="d-flex justify-content-end">
+                        <h5><a class="main-11" target='_blank' href="{{Title2[ct1][2]}}">Click for details!</a></h5>
+                    </div> 
+               </div>
            {% endfor %}
         </div>
     </div>
 
     <div class="tab-pane fade" id="cat-3" role="tabpanel" aria-labelledby="cat-3-tab" tabindex="3">
-        <div class="main-3">
+        <div class="main-33">
             {% for ct1 in range(0, Sz3, 2) %}
                 <div class="main-5">
                     <h4 class="main-6">{{Title3[ct1][0]}}</h4>
@@ -96,12 +100,14 @@
            {% endfor %}
         </div>
 
-        <div class="main-4">
+        <div class="main-34">
             {% for ct1 in range(1, Sz3, 2) %}
                 <div class="main-5">
                     <h4 class="main-6">{{Title3[ct1][0]}}</h4>
                     <h4 class="main-12">{{Title3[ct1][1]}}</h4>
-                    <h5><a class="main-11" target='_blank' href="{{Title3[ct1][2]}}">Click for details!</a></h5>
+                    <div class="d-flex justify-content-end">
+                        <h5><a class="main-11" target='_blank' href="{{Title3[ct1][2]}}">Click for details!</a></h5>
+                    </div>
                 </div>
            {% endfor %}
         </div>
