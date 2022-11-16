@@ -49,8 +49,7 @@ def signup_oauth():
 
 @auths.route("/callback")
 def callback():
-    for chk in range(3):
-        flow.fetch_token(authorization_response=request.url)
+    flow.fetch_token(authorization_response=request.url)
 
     if not session["state"] == request.args["state"]:
         abort(500)  # State does not match!
