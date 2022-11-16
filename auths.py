@@ -51,7 +51,7 @@ def signup_oauth():
 def callback():
     flow.fetch_token(authorization_response=request.url)
     
-    time.sleep(3)
+    time.sleep(1)
     
     if not session["state"] == request.args["state"]:
         abort(500)  # State does not match!
@@ -74,9 +74,11 @@ def callback():
 
 
 @auths.route("/protected_area", methods=['GET', 'POST'])
-# @login_is_required
 def protected_area():
     credentials = flow.credentials
+    
+    time.sleep(1)
+
     request_session = requests.session()
     cached_session = cachecontrol.CacheControl(request_session)
     token_request = google.auth.transport.requests.Request(session=cached_session)
@@ -152,7 +154,7 @@ def facebook_auth():
     from app import oauth
     token = oauth.facebook.authorize_access_token()
     
-    time.sleep(3)
+    time.sleep(2)
     
     resp = oauth.facebook.get(
         'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
