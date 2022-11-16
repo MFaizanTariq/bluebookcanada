@@ -10,7 +10,7 @@ import pathlib
 import os
 import requests
 import sqlite3
-
+import time
 
 auths = Blueprint('auths', __name__)
 
@@ -50,7 +50,9 @@ def signup_oauth():
 @auths.route("/callback")
 def callback():
     flow.fetch_token(authorization_response=request.url)
-
+    
+    time.sleep(2)
+    
     if not session["state"] == request.args["state"]:
         abort(500)  # State does not match!
 
