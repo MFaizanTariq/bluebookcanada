@@ -18,18 +18,18 @@
     position: absolute;
     align-content: center;
     top: 8%;
-    left: 16%;
+    left: 35%;
 }
 
 .main-3{
-    width:35%;
+    width:39%;
     position: absolute;
-    left: 16%;
+    left: 12%;
     top: 14%;
 }
 
 .main-4{
-    width:34%;
+    width:39%;
     position: absolute;
     left: 51%;
     top: 14%;
@@ -72,4 +72,32 @@
     left: 1%;
     width: 14%;
     height: 40%;
+}
+
+.main-23{
+    width:37%;
+    position: absolute;
+    left: 14%;
+    top: 14%;
+}
+
+.main-24{
+    width:37%;
+    position: absolute;
+    left: 51%;
+    top: 14%;
+}
+
+.main-33{
+    width:35%;
+    position: absolute;
+    left: 16%;
+    top: 14%;
+}
+
+.main-34{
+    width:35%;
+    position: absolute;
+    left: 51%;
+    top: 14%;
 }
