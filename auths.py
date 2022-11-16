@@ -51,7 +51,7 @@ def signup_oauth():
 def callback():
     flow.fetch_token(authorization_response=request.url)
     
-    time.sleep(2)
+    time.sleep(3)
     
     if not session["state"] == request.args["state"]:
         abort(500)  # State does not match!
@@ -151,6 +151,9 @@ def facebook():
 def facebook_auth():
     from app import oauth
     token = oauth.facebook.authorize_access_token()
+    
+    time.sleep(3)
+    
     resp = oauth.facebook.get(
         'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
     profile = resp.json()
