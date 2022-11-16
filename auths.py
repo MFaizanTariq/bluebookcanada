@@ -10,7 +10,6 @@ import pathlib
 import os
 import requests
 import sqlite3
-import time
 
 auths = Blueprint('auths', __name__)
 
@@ -51,10 +50,8 @@ def signup_oauth():
 def callback():
     flow.fetch_token(authorization_response=request.url)
     
-    time.sleep(1)
-    
     if not session["state"] == request.args["state"]:
-        abort(500)  # State does not match!
+        return render_template('signupuption.html')
 
     credentials = flow.credentials
     request_session = requests.session()
@@ -77,8 +74,6 @@ def callback():
 def protected_area():
     credentials = flow.credentials
     
-    time.sleep(1)
-
     request_session = requests.session()
     cached_session = cachecontrol.CacheControl(request_session)
     token_request = google.auth.transport.requests.Request(session=cached_session)
@@ -131,6 +126,7 @@ def protected_area():
 
     return render_template('signup.html', form=form)
 
+
 @auths.route('/facebook')
 def facebook():
     from app import oauth
@@ -149,12 +145,11 @@ def facebook():
     redirect_uri = url_for('auths.facebook_auth', _external=True)
     return oauth.facebook.authorize_redirect(redirect_uri)
 
+
 @auths.route('/facebook/auth/')
 def facebook_auth():
     from app import oauth
     token = oauth.facebook.authorize_access_token()
-    
-    time.sleep(2)
     
     resp = oauth.facebook.get(
         'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
@@ -164,6 +159,7 @@ def facebook_auth():
     session["email"] = profile['email']
 
     return redirect("/protected_area2")
+
 
 @auths.route("/protected_area2", methods=['GET', 'POST'])
 def protected_area2():
