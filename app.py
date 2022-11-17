@@ -32,12 +32,12 @@ app.register_blueprint(views, url_prefix='/')
 app.register_blueprint(auths, url_prefix='/')
 
 
-@scheduler.task('cron', id='1', hour='23', minute='12')
+@scheduler.task('cron', id='1', hour='23', minute='19')
 def news_fetch():
-    news_fetch1('entertainment', 'australia', key20)
-    news_fetch1('business', 'australia', key20)
-    news_fetch1('sports', 'australia', key20)
-    news_fetch1('health', 'australia', key11)
+    news_fetch1('entertainment', 'australia', key21)
+    news_fetch1('business', 'australia', key21)
+    news_fetch1('sports', 'australia', key21)
+    news_fetch1('health', 'australia', key21)
     news_fetch1('science', 'australia', key12)
     news_fetch1('technology', 'australia', key12)
     news_fetch1('entertainment', 'canada', key12)
