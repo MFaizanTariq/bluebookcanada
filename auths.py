@@ -54,6 +54,10 @@ def callback():
         return render_template('signupuption.html')
 
     credentials = flow.credentials
+    
+    if not session["state"] == request.args["state"]:
+        return render_template('signupuption.html')
+
     request_session = requests.session()
     cached_session = cachecontrol.CacheControl(request_session)
     token_request = google.auth.transport.requests.Request(session=cached_session)
