@@ -51,8 +51,11 @@ def news_fetch1(cat, loc, key):
                 print(nw_t)
                 print(nw_desc)
                 print(nw_link)
-                db_cur.execute("INSERT INTO news_data VALUES (?,?,?,?,?,?,?)", (id, cat, loc, nw_dt, nw_t, nw_desc, nw_link))
-                id = id+1
+                if nw_desc:
+                    if nw_link:
+                        db_cur.execute("INSERT INTO news_data VALUES (?,?,?,?,?,?,?)", (id, cat, loc, nw_dt, nw_t, nw_desc, nw_link))
+                        print('added')
+                        id = id+1
 
     nw_db.commit()
     nw_db.close()
