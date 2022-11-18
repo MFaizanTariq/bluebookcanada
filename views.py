@@ -4,6 +4,8 @@ from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 import sqlite3
 import datetime
+from flask_mail import Message, Mail
+
 
 nw_dt = datetime.datetime.now()
 nw_dt = nw_dt.date()
@@ -28,7 +30,6 @@ class ChoiceWizard(FlaskForm):
 @views.route('/')
 def index():
     return render_template('index.html')
-
 
 @views.route('/choice', methods=['GET', 'POST'])
 def choice():
@@ -128,6 +129,25 @@ def main_page():
 
     return render_template('main_page.html', Title1=nw1, Sz1=size_nw1, Title2=nw2, Sz2=size_nw2, Title3=nw3, Sz3=size_nw3,
                            Cat1=user_cat1, Cat2=user_cat2, Cat3=user_cat3)
+
+def send_invite():
+    from app import app, mail
+    fr_mail = request.form['email']
+    email = session['email']
+    passwrd = request.form['pass']
+    app.config['MAIL_USERNAME'] = email
+    app.config['MAIL_PASSWORD'] = passwrd
+    mail = Mail(app)
+
+    if request.method == 'POST':
+        msg = Message("Project BlueBook invite", sender=email, recipients=[fr_mail])
+        msg.body = "Hey There, inviting you to the BlueBook web application @ bluebookcanada.herokuapp.com, JOIN TODAY!!!)"
+        mail.send(msg)
+        msg1='Invite email sent successfully'
+        return render_template('profile_update.html', message=msg1)
+
+    return redirect(url_for("views.profile_update"))
+
 
 
 @views.route('/login', methods=['GET', 'POST'])
