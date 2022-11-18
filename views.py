@@ -130,6 +130,7 @@ def main_page():
     return render_template('main_page.html', Title1=nw1, Sz1=size_nw1, Title2=nw2, Sz2=size_nw2, Title3=nw3, Sz3=size_nw3,
                            Cat1=user_cat1, Cat2=user_cat2, Cat3=user_cat3)
 
+@views.route('/send_invite', methods=['GET', 'POST'])
 def send_invite():
     from app import app, mail
     fr_mail = request.form['email']
